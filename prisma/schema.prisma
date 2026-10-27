@@ -1,0 +1,377 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  admin
+  manager
+  staff
+  read_only
+}
+
+enum BusinessStatus {
+  onboarding
+  active
+  suspended
+}
+
+enum PricingType {
+  flat
+  hourly
+  per_unit
+  range
+  quote_on_site
+}
+
+enum PricingRuleType {
+  base_rate
+  hourly_rate
+  per_unit
+  minimum_charge
+  add_on
+  markup_percent
+  surcharge_percent
+  fee
+}
+
+enum LeadSource {
+  web_form
+  manual
+  api
+  phone
+  referral
+  other
+}
+
+enum LeadStatus {
+  new
+  contacted
+  quote_created
+  quote_sent
+  booked
+  won
+  lost
+  archived
+}
+
+enum Urgency {
+  low
+  normal
+  high
+  emergency
+}
+
+enum QuoteStatus {
+  draft
+  approved
+  sent
+  rejected
+  expired
+}
+
+enum MessageChannel {
+  sms
+  email
+}
+
+enum MessageType {
+  quote
+  follow_up
+  booking_confirmation
+  custom
+}
+
+enum MessageStatus {
+  draft
+  queued
+  sent
+  simulated
+  failed
+}
+
+enum AppointmentType {
+  consultation
+  quote_review
+  site_walk
+  installation
+  callback
+}
+
+enum AppointmentStatus {
+  pending
+  confirmed
+  completed
+  canceled
+}
+
+enum SubscriptionStatus {
+  trialing
+  active
+  past_due
+  canceled
+  incomplete
+  none
+}
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  passwordHash  String
+  name          String
+  avatarUrl     String?
+  emailVerified Boolean  @default(false)
+  role          UserRole @default(admin)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  businesses   Business[]
+  quotes       Quote[]
+  activityLogs ActivityLog[]
+}
+
+model Business {
+  id          String         @id @default(cuid())
+  ownerUserId String
+  name        String
+  phone       String?
+  email       String?
+  address     String?
+  city        String?
+  state       String?
+  country     String         @default("US")
+  timezone    String         @default("America/New_York")
+  serviceArea String?
+  website     String?
+  status      BusinessStatus @default(onboarding)
+  intakeToken String         @unique @default(cuid())
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  owner        User              @relation(fields: [ownerUserId], references: [id], onDelete: Cascade)
+  settings     BusinessSettings?
+  services     Service[]
+  leads        Lead[]
+  quotes       Quote[]
+  messages     Message[]
+  appointments Appointment[]
+  subscription Subscription?
+  activityLogs ActivityLog[]
+
+  @@index([ownerUserId])
+}
+
+model BusinessSettings {
+  id                   String  @id @default(cuid())
+  businessId           String  @unique
+  brandPrimaryColor    String  @default("#0f766e")
+  brandSecondaryColor  String  @default("#f59e0b")
+  logoUrl              String?
+  tone                 String  @default("friendly and professional")
+  defaultQuoteTerms    String  @default("This is a preliminary estimate. Final pricing is subject to an on-site inspection.")
+  defaultFollowUpText  String  @default("Hi {{customerName}}, thanks for reaching out to {{businessName}}. We've prepared a preliminary estimate for your {{service}}: {{total}}. Want to book a quick visit? {{bookingUrl}}")
+  defaultFollowUpEmail String  @default("Hi {{customerName}},\n\nThanks for contacting {{businessName}}. Based on your request, here is a preliminary estimate:\n\n- Service: {{service}}\n- Total: {{total}}\n- Notes: {{assumptions}}\n\nWould you like to book a consultation or review the details? {{bookingUrl}}\n\nBest,\n{{businessName}}")
+  defaultBookingUrl    String?
+  autoSendQuotes       Boolean @default(false)
+  autoSendFollowUps    Boolean @default(false)
+  notifyNewLeadEmail   Boolean @default(true)
+  notifyBookingEmail   Boolean @default(true)
+  taxRatePercent       Float   @default(0)
+
+  business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+}
+
+model Service {
+  id                 String      @id @default(cuid())
+  businessId         String
+  name               String
+  category           String
+  description        String?
+  pricingType        PricingType @default(flat)
+  basePrice          Float?
+  minPrice           Float?
+  maxPrice           Float?
+  unitLabel          String?
+  laborHoursEstimate Float?
+  minimumCharge      Float?
+  active             Boolean     @default(true)
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+
+  business     Business      @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  pricingRules PricingRule[]
+  leads        Lead[]
+
+  @@index([businessId])
+}
+
+model PricingRule {
+  id        String          @id @default(cuid())
+  serviceId String
+  ruleType  PricingRuleType
+  label     String
+  value     Float
+  unit      String?
+  note      String?
+  active    Boolean         @default(true)
+  createdAt DateTime        @default(now())
+
+  service Service @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+
+  @@index([serviceId])
+}
+
+model Lead {
+  id               String     @id @default(cuid())
+  businessId       String
+  customerName     String
+  customerEmail    String?
+  customerPhone    String?
+  serviceRequested String?
+  serviceId        String?
+  location         String?
+  inquiryText      String
+  customerNotes    String?
+  source           LeadSource @default(manual)
+  status           LeadStatus @default(new)
+  budgetEstimate   Float?
+  urgency          Urgency    @default(normal)
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+
+  business     Business         @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  service      Service?         @relation(fields: [serviceId], references: [id], onDelete: SetNull)
+  attachments  LeadAttachment[]
+  quotes       Quote[]
+  messages     Message[]
+  appointments Appointment[]
+
+  @@index([businessId, status])
+  @@index([businessId, createdAt])
+}
+
+model LeadAttachment {
+  id         String   @id @default(cuid())
+  leadId     String
+  fileName   String
+  url        String
+  mimeType   String
+  uploadedAt DateTime @default(now())
+
+  lead Lead @relation(fields: [leadId], references: [id], onDelete: Cascade)
+
+  @@index([leadId])
+}
+
+model Quote {
+  id              String      @id @default(cuid())
+  leadId          String
+  businessId      String
+  status          QuoteStatus @default(draft)
+  serviceType     String
+  totalPrice      Float
+  subtotal        Float
+  tax             Float       @default(0)
+  priceLow        Float?
+  priceHigh       Float?
+  lineItemsJson   Json
+  assumptions     String[]
+  terms           String
+  customerMessage String
+  internalNotes   String?
+  generatedBy     String      @default("rules")
+  publicToken     String      @unique @default(cuid())
+  createdByUserId String?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+  approvedAt      DateTime?
+  sentAt          DateTime?
+  expiresAt       DateTime?
+
+  lead      Lead      @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  business  Business  @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  createdBy User?     @relation(fields: [createdByUserId], references: [id], onDelete: SetNull)
+  messages  Message[]
+
+  @@index([businessId, status])
+  @@index([leadId])
+}
+
+model Message {
+  id          String         @id @default(cuid())
+  leadId      String
+  businessId  String
+  quoteId     String?
+  channel     MessageChannel
+  content     String
+  subject     String?
+  messageType MessageType    @default(custom)
+  status      MessageStatus  @default(draft)
+  recipient   String?
+  providerId  String?
+  error       String?
+  sentAt      DateTime?
+  createdAt   DateTime       @default(now())
+
+  lead     Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  quote    Quote?   @relation(fields: [quoteId], references: [id], onDelete: SetNull)
+
+  @@index([leadId])
+  @@index([businessId, createdAt])
+}
+
+model Appointment {
+  id              String            @id @default(cuid())
+  leadId          String
+  businessId      String
+  scheduledAt     DateTime
+  durationMinutes Int               @default(60)
+  appointmentType AppointmentType   @default(consultation)
+  notes           String?
+  contactMethod   String?
+  status          AppointmentStatus @default(pending)
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+
+  lead     Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@index([businessId, scheduledAt])
+  @@index([leadId])
+}
+
+model Subscription {
+  id                   String             @id @default(cuid())
+  businessId           String             @unique
+  stripeCustomerId     String?            @unique
+  stripeSubscriptionId String?            @unique
+  planName             String             @default("trial")
+  status               SubscriptionStatus @default(trialing)
+  currentPeriodEnd     DateTime?
+  trialQuotesUsed      Int                @default(0)
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime           @updatedAt
+
+  business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+}
+
+model ActivityLog {
+  id           String   @id @default(cuid())
+  businessId   String
+  userId       String?
+  entityType   String
+  entityId     String
+  action       String
+  metadataJson Json?
+  createdAt    DateTime @default(now())
+
+  business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  user     User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([businessId, createdAt])
+}
