@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils/cn";
+import { LogoMark } from "@/components/common/Logo";
 
 const nav = [
   { href: "/dashboard", label: "Overview", icon: "▦" },
@@ -25,10 +26,10 @@ export function SidebarNavigation({ businessName, newLeads }: { businessName: st
   return (
     <aside className="hidden w-60 shrink-0 flex-col border-r border-slate-200 bg-white md:flex">
       <div className="flex h-16 items-center gap-2 border-b border-slate-200 px-5">
-        <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-700 text-sm font-bold text-white">F</span>
+        <LogoMark size={32} />
         <div className="min-w-0">
           <p className="truncate text-sm font-semibold">{businessName}</p>
-          <p className="text-[11px] text-slate-500">Fable</p>
+          <p className="text-[11px] font-semibold tracking-tight text-brand-900">Fable</p>
         </div>
       </div>
       <nav className="flex-1 space-y-6 px-3 py-4">

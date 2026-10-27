@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/common/Button";
+import { Logo } from "@/components/common/Logo";
 import { FormField } from "@/components/common/FormField";
 import { api } from "@/lib/client/api";
 import { formatMoney } from "@/lib/utils/format";
@@ -111,7 +112,7 @@ export function PublicQuote({ token, business, quote, customerName, alreadyBooke
             </>
           )}
         </section>
-        <p className="text-center text-xs text-slate-400">Powered by Fable</p>
+        <p className="flex items-center justify-center gap-1.5 text-xs text-slate-400">Powered by <Logo size={16} className="gap-1 text-slate-500" /></p>
       </div>
     </div>
   );

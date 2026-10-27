@@ -17,7 +17,7 @@ export default async function PublicQuotePage({ params }: { params: Promise<{ to
   return (
     <PublicQuote
       token={token}
-      business={{ name: quote.business.name, phone: quote.business.phone, email: quote.business.email, color: quote.business.settings?.brandPrimaryColor ?? "#0f766e", logoUrl: quote.business.settings?.logoUrl ?? null }}
+      business={{ name: quote.business.name, phone: quote.business.phone, email: quote.business.email, color: quote.business.settings?.brandPrimaryColor ?? "#2b3a8f", logoUrl: quote.business.settings?.logoUrl ?? null }}
       quote={{ serviceType: quote.serviceType, lineItems: quote.lineItemsJson as unknown as LineItem[], subtotal: quote.subtotal, tax: quote.tax, total: quote.totalPrice, priceLow: quote.priceLow, priceHigh: quote.priceHigh, assumptions: quote.assumptions, terms: quote.terms, status: quote.status, expiresAt: quote.expiresAt?.toISOString() ?? null }}
       customerName={quote.lead.customerName}
       alreadyBooked={booked ? { scheduledAt: booked.scheduledAt.toISOString(), status: booked.status } : null}

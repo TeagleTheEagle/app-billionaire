@@ -37,8 +37,8 @@ export function BrandForm({ settings }: { settings: Settings }) {
   const { loading, save } = useSave("/api/settings", "PUT", "Brand saved");
   return (
     <form onSubmit={(e) => { e.preventDefault(); const fd = new FormData(e.currentTarget); save({ brandPrimaryColor: fd.get("brandPrimaryColor"), brandSecondaryColor: fd.get("brandSecondaryColor"), logoUrl: fd.get("logoUrl") || "", taxRatePercent: Number(fd.get("taxRatePercent") || 0) }); }} className="grid gap-4 sm:grid-cols-2">
-      <FormField label="Primary color" htmlFor="brandPrimaryColor"><input id="brandPrimaryColor" name="brandPrimaryColor" type="color" className="input h-10 p-1" defaultValue={settings?.brandPrimaryColor ?? "#0f766e"} /></FormField>
-      <FormField label="Accent color" htmlFor="brandSecondaryColor"><input id="brandSecondaryColor" name="brandSecondaryColor" type="color" className="input h-10 p-1" defaultValue={settings?.brandSecondaryColor ?? "#f59e0b"} /></FormField>
+      <FormField label="Primary color" htmlFor="brandPrimaryColor"><input id="brandPrimaryColor" name="brandPrimaryColor" type="color" className="input h-10 p-1" defaultValue={settings?.brandPrimaryColor ?? "#2b3a8f"} /></FormField>
+      <FormField label="Accent color" htmlFor="brandSecondaryColor"><input id="brandSecondaryColor" name="brandSecondaryColor" type="color" className="input h-10 p-1" defaultValue={settings?.brandSecondaryColor ?? "#f4a61d"} /></FormField>
       <FormField label="Logo URL" htmlFor="logoUrl" help="Link to a hosted PNG or SVG"><input id="logoUrl" name="logoUrl" className="input" defaultValue={settings?.logoUrl ?? ""} placeholder="https://…/logo.png" /></FormField>
       <FormField label="Sales tax rate (%)" htmlFor="taxRatePercent" help="Applied to quote subtotals. Leave 0 if you quote tax-inclusive."><input id="taxRatePercent" name="taxRatePercent" type="number" min="0" max="30" step="0.01" className="input" defaultValue={settings?.taxRatePercent ?? 0} /></FormField>
       <div className="sm:col-span-2 flex justify-end"><Button type="submit" loading={loading}>Save brand</Button></div>

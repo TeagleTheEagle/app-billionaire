@@ -168,8 +168,8 @@ model Business {
 model BusinessSettings {
   id                   String  @id @default(cuid())
   businessId           String  @unique
-  brandPrimaryColor    String  @default("#0f766e")
-  brandSecondaryColor  String  @default("#f59e0b")
+  brandPrimaryColor    String  @default("#2b3a8f")
+  brandSecondaryColor  String  @default("#f4a61d")
   logoUrl              String?
   tone                 String  @default("friendly and professional")
   defaultQuoteTerms    String  @default("This is a preliminary estimate. Final pricing is subject to an on-site inspection.")

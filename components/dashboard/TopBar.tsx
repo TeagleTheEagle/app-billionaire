@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Avatar } from "@/components/common/Avatar";
+import { Logo } from "@/components/common/Logo";
 import { api } from "@/lib/client/api";
 
 export function TopBar({ user, newLeads }: { user: { name: string; email: string }; newLeads: number }) {
@@ -17,7 +18,7 @@ export function TopBar({ user, newLeads }: { user: { name: string; email: string
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200 bg-white/90 px-4 backdrop-blur sm:px-6">
       <div className="flex items-center gap-3 md:hidden">
-        <Link href="/dashboard" className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-700 text-sm font-bold text-white">F</Link>
+        <Logo href="/dashboard" size={28} wordmark={false} />
         <nav className="flex gap-3 text-sm font-medium text-slate-700">
           <Link href="/dashboard/leads">Leads</Link>
           <Link href="/dashboard/quotes">Quotes</Link>
