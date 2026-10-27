@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { prisma } from "@/lib/db";
 import { logActivity } from "@/lib/activity";
+import { notifyOwnerBooking } from "@/lib/notifications";
 import { HttpError } from "@/lib/utils/api";
 import { formatDateTime } from "@/lib/utils/format";
 import { advanceLeadStatus } from "@/services/lead-service";
@@ -55,6 +56,9 @@ export async function createAppointment(businessId: string, userId: string | nul
   });
   await advanceLeadStatus(lead.id, "booked");
   await logActivity({ businessId, userId, entityType: "appointment", entityId: appointment.id, action: opts.bookedByCustomer ? "booked_by_customer" : "created", metadata: { leadId: lead.id, scheduledAt: input.scheduledAt.toISOString() } });
+  if (opts.bookedByCustomer) {
+    notifyOwnerBooking(appointment, lead).catch((err) => console.error("[notify] booking", err));
+  }
 
   if (input.sendConfirmation !== false) {
     const when = formatDateTime(input.scheduledAt);

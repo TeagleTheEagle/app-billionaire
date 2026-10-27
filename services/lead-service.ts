@@ -2,6 +2,7 @@ import { z } from "zod";
 import type { LeadStatus, Prisma } from "@prisma/client";
 import { prisma } from "@/lib/db";
 import { logActivity } from "@/lib/activity";
+import { notifyOwnerNewLead } from "@/lib/notifications";
 
 export const leadSchema = z.object({
   customerName: z.string().trim().min(1, "Customer name is required").max(120),
@@ -70,6 +71,10 @@ export async function createLead(businessId: string, userId: string | null, inpu
     },
   });
   await logActivity({ businessId, userId, entityType: "lead", entityId: lead.id, action: "created", metadata: { source: lead.source, customerName: lead.customerName } });
+  if (!userId) {
+    // Inbound lead (web form or API): tell the owner.
+    notifyOwnerNewLead(lead).catch((err) => console.error("[notify] new lead", err));
+  }
   return lead;
 }
 
