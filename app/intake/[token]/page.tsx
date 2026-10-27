@@ -18,7 +18,7 @@ export default async function IntakePage({ params }: { params: Promise<{ token: 
           <p className="mt-1 text-sm text-slate-500">{business.serviceArea ? `Serving ${business.serviceArea}. ` : ""}We reply fast with a real number.</p>
         </header>
         <IntakeForm token={token} businessName={business.name} color={business.settings?.brandPrimaryColor ?? "#0f766e"} services={business.services.map((s) => s.name)} />
-        <p className="text-center text-xs text-slate-400">Powered by Fable 5.1</p>
+        <p className="text-center text-xs text-slate-400">Powered by Fable</p>
       </div>
     </div>
   );

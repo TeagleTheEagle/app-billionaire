@@ -111,7 +111,7 @@ export function PublicQuote({ token, business, quote, customerName, alreadyBooke
             </>
           )}
         </section>
-        <p className="text-center text-xs text-slate-400">Powered by Fable 5.1</p>
+        <p className="text-center text-xs text-slate-400">Powered by Fable</p>
       </div>
     </div>
   );

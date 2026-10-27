@@ -15,7 +15,7 @@ export default function HomePage() {
         <div className="max-w-3xl">
           <p className="mb-3 inline-flex items-center rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-800">Built for plumbers, landscapers, cleaners, electricians, and every trade in between</p>
           <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">Reply to every lead with a real quote in under a minute.</h1>
-          <p className="mt-5 text-lg text-slate-600">Fable 5.1 reads the customer’s message, builds an estimate from your own pricing, writes the follow-up, and books the job. You stay in control of every number that goes out.</p>
+          <p className="mt-5 text-lg text-slate-600">Fable reads the customer’s message, builds an estimate from your own pricing, writes the follow-up, and books the job. You stay in control of every number that goes out.</p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button href="/signup" size="lg">Start free, no card needed</Button>
             <Button href="/demo" size="lg" variant="secondary">See a 2-minute demo</Button>
@@ -40,7 +40,7 @@ export default function HomePage() {
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <div>
             <h2 className="text-3xl font-bold tracking-tight">The lead you answer first is the lead you win.</h2>
-            <p className="mt-4 text-slate-600">Most local service businesses lose jobs to whoever quotes first. Fable 5.1 makes that you, without hiring an office manager or typing the same estimate for the hundredth time.</p>
+            <p className="mt-4 text-slate-600">Most local service businesses lose jobs to whoever quotes first. Fable makes that you, without hiring an office manager or typing the same estimate for the hundredth time.</p>
             <ul className="mt-6 space-y-3 text-sm text-slate-700">
               <li>✓ Quotes are built from <strong>your</strong> rates, minimums, add-ons, and fees</li>
               <li>✓ Every estimate is a draft until you approve it</li>

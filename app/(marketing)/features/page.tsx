@@ -16,7 +16,7 @@ export default function FeaturesPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
       <h1 className="text-4xl font-bold tracking-tight">Everything between “got a lead” and “got the job”.</h1>
-      <p className="mt-3 max-w-2xl text-slate-600">Fable 5.1 is deliberately narrow. It does one workflow extremely well: inquiry → quote → approval → message → booking.</p>
+      <p className="mt-3 max-w-2xl text-slate-600">Fable is deliberately narrow. It does one workflow extremely well: inquiry → quote → approval → message → booking.</p>
       <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {groups.map((g) => (
           <div key={g.title} className="card p-6">

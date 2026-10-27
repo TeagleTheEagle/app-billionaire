@@ -33,7 +33,7 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
     <form onSubmit={submit} className="card w-full max-w-md space-y-4 p-6">
       <div>
         <h1 className="text-xl font-semibold">{mode === "login" ? "Welcome back" : "Create your account"}</h1>
-        <p className="mt-1 text-sm text-slate-500">{mode === "login" ? "Sign in to your Fable 5.1 workspace." : "10 free AI quotes. No card required."}</p>
+        <p className="mt-1 text-sm text-slate-500">{mode === "login" ? "Sign in to your Fable workspace." : "10 free AI quotes. No card required."}</p>
       </div>
       {mode === "signup" && (
         <FormField label="Your name" htmlFor="name" required><input id="name" name="name" className="input" required autoComplete="name" /></FormField>

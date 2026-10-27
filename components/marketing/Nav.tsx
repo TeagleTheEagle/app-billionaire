@@ -7,7 +7,7 @@ export function MarketingNav() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link href="/" className="flex items-center gap-2 font-semibold">
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-700 text-sm font-bold text-white">F</span>
-          Fable 5.1
+          Fable
         </Link>
         <nav className="hidden items-center gap-6 text-sm font-medium text-slate-700 md:flex">
           <Link href="/features" className="hover:text-slate-900">Features</Link>
@@ -28,7 +28,7 @@ export function MarketingFooter() {
   return (
     <footer className="border-t border-slate-200 bg-white">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 py-8 text-sm text-slate-500 sm:flex-row sm:px-6">
-        <p>© {new Date().getFullYear()} Fable 5.1 · AI quotes and booking for local service businesses</p>
+        <p>© {new Date().getFullYear()} Fable · AI quotes and booking for local service businesses</p>
         <div className="flex gap-4">
           <Link href="/features">Features</Link>
           <Link href="/pricing">Pricing</Link>

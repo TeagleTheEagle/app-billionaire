@@ -1,8 +1,8 @@
-# Fable 5.1
+# Fable
 
 AI-powered lead-to-booking system for local service businesses. It turns customer inquiries into professional estimates, follow-up texts/emails, and booked appointments while keeping the business in control. Built for small service companies that want to quote faster and win more jobs.
 
-The product spec lives in [`FABLE_5_1_BLUEPRINT.md`](./FABLE_5_1_BLUEPRINT.md). This repo implements its MVP scope end to end:
+The product spec lives in [`FABLE_BLUEPRINT.md`](./FABLE_BLUEPRINT.md). This repo implements its MVP scope end to end:
 
 - Signup/login, business profile, onboarding wizard
 - Service catalog with pricing rules (hourly, per-unit, flat, range, minimums, add-ons, fees, markups, surcharges)

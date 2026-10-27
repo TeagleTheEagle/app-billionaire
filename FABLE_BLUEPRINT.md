@@ -1,13 +1,13 @@
-# Fable 5.1 Blueprint
+# Fable Blueprint
 
 ## Project name
-Fable 5.1
+Fable
 
 ## Tagline
 AI quote, follow-up, and booking automation for local service businesses
 
 ## Product summary
-Fable 5.1 is a SaaS tool for local service businesses that need to respond faster, quote more accurately, and convert more leads into booked jobs. The app captures customer inquiries, understands the job request, generates a professional quote using the business's pricing rules, sends a follow-up text/email, allows the business to approve or edit the quote, and helps convert the lead into a booked appointment.
+Fable is a SaaS tool for local service businesses that need to respond faster, quote more accurately, and convert more leads into booked jobs. The app captures customer inquiries, understands the job request, generates a professional quote using the business's pricing rules, sends a follow-up text/email, allows the business to approve or edit the quote, and helps convert the lead into a booked appointment.
 
 ## Target customer
 - Small local service businesses
@@ -788,15 +788,15 @@ Mitigation: lead follow-up must be quick, CTA must be visible, templates must be
 - White-label partner offering
 
 ## Product positioning
-Fable 5.1 is not a general AI app. It is a focused conversion tool for local service businesses. Its core job is simple: turn incoming customer inquiries into clearly communicated estimates and booked appointments.
+Fable is not a general AI app. It is a focused conversion tool for local service businesses. Its core job is simple: turn incoming customer inquiries into clearly communicated estimates and booked appointments.
 
 ## Final build prompt for Claude Code
-"Build Fable 5.1, a SaaS MVP for local service businesses. The product helps business owners turn customer inquiries into professional estimates, follow-up messages, and booked appointments using AI. Focus on one workflow: lead intake → AI quote generation → approval → customer messaging → booking. Include a modern dashboard, service catalog with pricing rules, lead management, quote approval/editing, booking actions, and Stripe subscriptions. The user is a non-technical business owner. Prioritize simplicity, speed, trust, and conversion. Do not overbuild. Use a modern web stack such as Next.js, Tailwind, Postgres, and serverless APIs. Include all required database tables, API routes, authentication, and pricing logic."
+"Build Fable, a SaaS MVP for local service businesses. The product helps business owners turn customer inquiries into professional estimates, follow-up messages, and booked appointments using AI. Focus on one workflow: lead intake → AI quote generation → approval → customer messaging → booking. Include a modern dashboard, service catalog with pricing rules, lead management, quote approval/editing, booking actions, and Stripe subscriptions. The user is a non-technical business owner. Prioritize simplicity, speed, trust, and conversion. Do not overbuild. Use a modern web stack such as Next.js, Tailwind, Postgres, and serverless APIs. Include all required database tables, API routes, authentication, and pricing logic."
 
 ## Summary
-Fable 5.1 is a narrow SaaS product for local service businesses that turns customer inquiries into vetted estimates, follow-up messages, and booked appointments using AI while keeping business review and human control in the loop.
+Fable is a narrow SaaS product for local service businesses that turns customer inquiries into vetted estimates, follow-up messages, and booked appointments using AI while keeping business review and human control in the loop.
 
 ## Suggested repo README insertion
 If you want a short summary for the repo, use this:
 
-"Fable 5.1 is an AI-powered lead-to-booking system for local service businesses. It turns customer inquiries into professional estimates, follow-up texts/emails, and booked appointments while keeping the business in control. Built for small service companies that want to quote faster and win more jobs."
+"Fable is an AI-powered lead-to-booking system for local service businesses. It turns customer inquiries into professional estimates, follow-up texts/emails, and booked appointments while keeping the business in control. Built for small service companies that want to quote faster and win more jobs."

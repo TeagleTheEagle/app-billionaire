@@ -28,7 +28,7 @@ export function SidebarNavigation({ businessName, newLeads }: { businessName: st
         <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-700 text-sm font-bold text-white">F</span>
         <div className="min-w-0">
           <p className="truncate text-sm font-semibold">{businessName}</p>
-          <p className="text-[11px] text-slate-500">Fable 5.1</p>
+          <p className="text-[11px] text-slate-500">Fable</p>
         </div>
       </div>
       <nav className="flex-1 space-y-6 px-3 py-4">
