@@ -2,5 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
   "buildCommand": "npx prisma migrate deploy && npm run build",
-  "regions": ["iad1"]
+  "regions": ["iad1"],
+  "crons": [{ "path": "/api/cron/follow-ups", "schedule": "0 14 * * *" }]
 }

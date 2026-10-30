@@ -72,10 +72,10 @@ export function NotificationsForm({ settings }: { settings: Settings }) {
   const { loading, save } = useSave("/api/settings", "PUT", "Notification settings saved");
   return (
     <form onSubmit={(e) => { e.preventDefault(); const fd = new FormData(e.currentTarget); save({ notifyNewLeadEmail: fd.get("notifyNewLeadEmail") === "on", notifyBookingEmail: fd.get("notifyBookingEmail") === "on", autoSendQuotes: fd.get("autoSendQuotes") === "on", autoSendFollowUps: fd.get("autoSendFollowUps") === "on" }); }} className="space-y-3">
-      <Toggle name="notifyNewLeadEmail" label="Email me when a new lead arrives" help="From the intake form or API." checked={settings?.notifyNewLeadEmail ?? true} />
-      <Toggle name="notifyBookingEmail" label="Email me when a customer books" help="Self-bookings from the quote page." checked={settings?.notifyBookingEmail ?? true} />
-      <Toggle name="autoSendQuotes" label="Auto-send approved quotes" help="Coming soon: send the moment you approve. Currently you choose the channel each time." checked={settings?.autoSendQuotes ?? false} />
-      <Toggle name="autoSendFollowUps" label="Auto follow-up after 2 days" help="Coming soon: nudge customers who haven't booked." checked={settings?.autoSendFollowUps ?? false} />
+      <Toggle name="notifyNewLeadEmail" label="Email me when a new lead arrives" help="Sent to your account email when a lead arrives from the intake form or API." checked={settings?.notifyNewLeadEmail ?? true} />
+      <Toggle name="notifyBookingEmail" label="Email me when a customer books" help="Sent to your account email when a customer picks a time from their quote page." checked={settings?.notifyBookingEmail ?? true} />
+      <Toggle name="autoSendQuotes" label="Auto-send approved quotes" help="The moment you approve a quote it goes out by text if the lead has a phone number, otherwise by email. You can still edit before approving." checked={settings?.autoSendQuotes ?? false} />
+      <Toggle name="autoSendFollowUps" label="Auto follow-up after 2 days" help="If a sent quote has no booking after 2 days, send one friendly check-in with the booking link. Runs once a day." checked={settings?.autoSendFollowUps ?? false} />
       <div className="flex justify-end"><Button type="submit" loading={loading}>Save</Button></div>
     </form>
   );

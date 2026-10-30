@@ -42,6 +42,9 @@ export function AuthForm({ mode }: { mode: "login" | "signup" }) {
       <FormField label="Password" htmlFor="password" required help={mode === "signup" ? "At least 8 characters" : undefined}>
         <input id="password" name="password" type="password" className="input" required minLength={mode === "signup" ? 8 : 1} autoComplete={mode === "signup" ? "new-password" : "current-password"} />
       </FormField>
+      {mode === "login" && (
+        <p className="-mt-2 text-right text-xs"><Link href="/forgot-password" className="text-brand-700 hover:underline">Forgot password?</Link></p>
+      )}
       {error && <p className="text-sm text-red-600">{error}</p>}
       <Button type="submit" className="w-full" loading={loading}>{mode === "login" ? "Sign in" : "Create account"}</Button>
       <p className="text-center text-sm text-slate-500">

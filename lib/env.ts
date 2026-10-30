@@ -18,6 +18,7 @@ export const env = {
   resendApiKey: process.env.RESEND_API_KEY ?? "",
   emailFrom: process.env.EMAIL_FROM ?? "Fable <quotes@example.com>",
   trialQuoteLimit: Number(process.env.TRIAL_QUOTE_LIMIT ?? "10"),
+  cronSecret: process.env.CRON_SECRET ?? "",
 };
 
 export const features = {

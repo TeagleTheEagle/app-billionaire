@@ -23,6 +23,8 @@ Supabase, Railway, or any Postgres 14+ works the same way.
 
 4. Click **Deploy**. When it finishes, open the URL, sign up, and run through onboarding.
 
+Also add `CRON_SECRET` (any long random string). Vercel uses it to call the daily follow-up job at `/api/cron/follow-ups`, defined in `vercel.json`.
+
 Set `NEXT_PUBLIC_APP_URL` again once you attach a custom domain. It is used in the booking links sent to customers.
 
 ## 3. Turn on AI quotes
